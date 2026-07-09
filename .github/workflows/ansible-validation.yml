@@ -1,0 +1,47 @@
+---
+name: Ansible Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible ansible-lint yamllint
+
+      - name: Run YAML lint
+        run: |
+          yamllint .
+
+      - name: Run Ansible lint
+        run: |
+          ansible-lint || true
+
+      - name: Validate playbook syntax
+        run: |
+          find playbooks -name "*.yml" -type f -exec \
+          ansible-playbook --syntax-check {} \;
+
+      - name: Validate solution playbooks
+        run: |
+          find solutions -name "*.yml" -type f -exec \
+          ansible-playbook --syntax-check {} \;

@@ -25,3 +25,14 @@ ansible-lint
 2. Commit your changes.
 3. Open a Pull Request.
 4. Describe the purpose of the change.
+
+## Branch Naming
+
+Examples:
+
+```text
+feature/add-exercise-13
+feature/update-awx-deployment
+bugfix/fix-template-path
+docs/update-learning-path
+```
