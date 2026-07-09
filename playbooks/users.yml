@@ -1,0 +1,12 @@
+---
+- name: Create workshop users
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Ensure users exist
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users }}"

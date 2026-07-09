@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+
+  controller:
+    build:
+      context: .
+      dockerfile: Containerfile.controller
+
+    container_name: ansible-controller
+
+    hostname: controller
+
+    volumes:
+      - ../../:/workspace:Z
+
+    working_dir: /workspace
+
+    tty: true
+
+  node1:
+    build:
+      context: .
+      dockerfile: Containerfile.managed
+
+    container_name: node1
+
+    hostname: node1
+
+    tty: true
+
+  node2:
+    build:
+      context: .
+      dockerfile: Containerfile.managed
+
+    container_name: node2
+
+    hostname: node2
+
+    tty: true

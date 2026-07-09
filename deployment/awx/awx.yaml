@@ -1,0 +1,32 @@
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+
+metadata:
+  name: awx
+  namespace: awx
+
+spec:
+
+  service_type: NodePort
+
+  projects_persistence: true
+  projects_storage_access_mode: ReadWriteOnce
+  projects_storage_size: 5Gi
+
+  postgres_storage_class: ""
+
+  postgres_storage_requirements:
+    requests:
+      storage: 8Gi
+
+  web_resource_requirements:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+  task_resource_requirements:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+  ingress_type: none

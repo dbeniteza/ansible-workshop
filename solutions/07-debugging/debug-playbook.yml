@@ -1,0 +1,42 @@
+---
+- name: Debugging Workshop
+  hosts: all
+  gather_facts: true
+  vars:
+    application_name: workshop-app
+    environment: lab
+
+  tasks:
+    - name: Display application name
+      ansible.builtin.debug:
+        msg: "Application: {{ application_name }}"
+
+    - name: Display environment
+      ansible.builtin.debug:
+        msg: "Environment: {{ environment }}"
+
+    - name: Display hostname
+      ansible.builtin.debug:
+        msg: "Hostname: {{ ansible_hostname }}"
+
+    - name: Display operating system
+      ansible.builtin.debug:
+        msg: "Distribution: {{ ansible_distribution }}"
+
+    - name: Display operating system version
+      ansible.builtin.debug:
+        msg: "Version: {{ ansible_distribution_version }}"
+
+    - name: Run hostname command
+      ansible.builtin.command: hostname
+      register: hostname_result
+
+    - name: Display command output
+      ansible.builtin.debug:
+        var: hostname_result.stdout
+
+    - name: Display full facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      tags:
+        - facts

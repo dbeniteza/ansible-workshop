@@ -1,0 +1,17 @@
+---
+- name: Display Ansible facts
+  hosts: all
+  gather_facts: true
+  tasks:
+
+    - name: Show hostname
+      ansible.builtin.debug:
+        msg: "Hostname: {{ ansible_hostname }}"
+
+    - name: Show operating system
+      ansible.builtin.debug:
+        msg: "Distribution: {{ ansible_distribution }}"
+
+    - name: Show IP address
+      ansible.builtin.debug:
+        msg: "IPv4: {{ ansible_default_ipv4.address }}"

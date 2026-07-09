@@ -1,0 +1,16 @@
+---
+ansible-navigator:
+  mode: stdout
+  inventory-columns:
+    - name
+
+  ansible:
+    inventory:
+      entries:
+        - inventory/inventory.ini
+
+  execution-environment:
+    enabled: true
+    image: quay.io/ansible/creator-ee:latest
+    pull:
+      policy: missing

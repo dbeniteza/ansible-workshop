@@ -1,0 +1,9 @@
+---
+- name: Validate connectivity
+
+  hosts: all
+
+  tasks:
+
+    - name: Ping all nodes
+      ansible.builtin.ping:

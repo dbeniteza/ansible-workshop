@@ -1,0 +1,28 @@
+---
+- name: Exercise 04 Solution
+  hosts: web
+  become: true
+  gather_facts: true
+
+  vars:
+    apache_port: 8080
+    document_root: /var/www/workshop
+    server_admin: workshop@example.com
+
+  tasks:
+    - name: Display configured port
+      ansible.builtin.debug:
+        msg: "Port: {{ apache_port }}"
+
+    - name: Display document root
+      ansible.builtin.debug:
+        msg: "Root: {{ document_root }}"
+
+    - name: Display administrator
+      ansible.builtin.debug:
+        msg: "Admin: {{ server_admin }}"
+
+    - name: Deploy configuration template
+      ansible.builtin.template:
+        src: httpd.conf.j2
+        dest: /tmp/httpd.conf

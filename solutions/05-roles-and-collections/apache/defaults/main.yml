@@ -1,0 +1,6 @@
+---
+workshop_name: Ansible Workshop
+
+apache_package: httpd
+
+apache_service: httpd

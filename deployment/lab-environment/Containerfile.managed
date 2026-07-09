@@ -1,0 +1,15 @@
+FROM rockylinux:9
+
+RUN dnf install -y \
+    openssh-server \
+    sudo \
+    python3 \
+ && dnf clean all
+
+RUN useradd student
+
+RUN echo "student:redhat" | chpasswd
+
+RUN mkdir /var/run/sshd
+
+CMD ["/usr/sbin/sshd","-D"]

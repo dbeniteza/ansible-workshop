@@ -1,0 +1,29 @@
+---
+- name: Install and configure Apache
+  hosts: web
+  become: true
+  tasks:
+
+    - name: Install Apache package
+      ansible.builtin.package:
+        name: "{{ apache_package }}"
+        state: present
+
+    - name: Ensure Apache service is started
+      ansible.builtin.service:
+        name: "{{ apache_service }}"
+        state: started
+        enabled: true
+
+    - name: Deploy index page
+      ansible.builtin.copy:
+        content: |
+
+          <html>
+
+          <h1>Ansible Workshop</h1>
+
+          <p>Managed by Ansible</p>
+
+          </html>
+        dest: "{{ web_root }}/index.html"

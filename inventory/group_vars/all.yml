@@ -1,0 +1,15 @@
+---
+
+apache_package: httpd
+
+apache_service: httpd
+
+apache_port: 80
+
+web_root: /var/www/html
+
+users:
+
+  - dev_user
+  - qa_user
+  - prod_user

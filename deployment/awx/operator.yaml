@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: awx
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: awx-operator-controller-manager
+  namespace: awx
+
+# See README.md
+# Install the latest AWX Operator with:
+#
+# kubectl apply -f \
+# https://raw.githubusercontent.com/ansible/awx-operator/devel/deploy/awx-operator.yaml

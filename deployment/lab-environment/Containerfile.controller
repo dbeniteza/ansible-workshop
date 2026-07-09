@@ -1,0 +1,10 @@
+FROM quay.io/ansible/creator-ee:latest
+
+USER root
+
+RUN mkdir -p /root/.ssh
+
+COPY inventory.ini /etc/ansible/hosts
+COPY ansible.cfg /etc/ansible/ansible.cfg
+
+CMD ["/bin/bash"]

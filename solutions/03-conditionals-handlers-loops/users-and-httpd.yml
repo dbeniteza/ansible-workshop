@@ -1,0 +1,47 @@
+---
+- name: Exercise 03 Solution
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Create workshop users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - developer
+        - tester
+        - operator
+
+    - name: Install Apache
+      ansible.builtin.package:
+        name: httpd
+        state: present
+      register: package_result
+      when: "'web' in group_names"
+
+    - name: Display installation message
+      ansible.builtin.debug:
+        msg: "Apache was installed or updated."
+      when:
+        - "'web' in group_names"
+        - package_result.changed
+
+    - name: Deploy index page
+      ansible.builtin.copy:
+        content: |
+          <html>
+          <h1>Ansible Workshop</h1>
+          <p>Exercise 03</p>
+          </html>
+        dest: /var/www/html/index.html
+      notify: restart_httpd
+      when: "'web' in group_names"
+
+  handlers:
+
+    - name: restart_httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted

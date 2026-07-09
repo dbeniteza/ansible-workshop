@@ -1,0 +1,8 @@
+---
+- name: Workshop validation
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Ping hosts
+      ansible.builtin.ping:

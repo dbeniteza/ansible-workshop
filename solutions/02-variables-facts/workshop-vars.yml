@@ -1,0 +1,42 @@
+---
+- name: Variables and Facts Workshop
+  hosts: all
+  gather_facts: true
+  vars:
+    team_name: Platform Engineering
+    environment: Workshop
+
+  tasks:
+    - name: Display team information
+      ansible.builtin.debug:
+        msg:
+          - "Team: {{ team_name }}"
+          - "Environment: {{ environment }}"
+
+    - name: Display hostname
+      ansible.builtin.debug:
+        msg: "Hostname: {{ ansible_hostname }}"
+
+    - name: Display distribution
+      ansible.builtin.debug:
+        msg: "Distribution: {{ ansible_distribution }}"
+
+    - name: Display version
+      ansible.builtin.debug:
+        msg: "Version: {{ ansible_distribution_version }}"
+
+    - name: Create custom fact
+      ansible.builtin.set_fact:
+        server_role: student-lab
+
+    - name: Display custom fact
+      ansible.builtin.debug:
+        msg: "Role: {{ server_role }}"
+
+    - name: Bonus challenge example
+      ansible.builtin.debug:
+        msg: >
+          {{ ansible_hostname }} is running
+          {{ ansible_distribution }}
+          and belongs to the
+          {{ team_name }} team.
