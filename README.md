@@ -1,5 +1,15 @@
 # Ansible Workshop
 
+![GitHub Workflow](https://github.com/dbeniteza/ansible-workshop/actions/workflows/ansible-validation.yml/badge.svg)
+![GitHub License](https://img.shields.io/github/license/dbeniteza/ansible-workshop)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/dbeniteza/ansible-workshop)
+![GitHub Issues](https://img.shields.io/github/issues/dbeniteza/ansible-workshop)
+![Ansible](https://img.shields.io/badge/Ansible-Automation-red?logo=ansible)
+![AWX](https://img.shields.io/badge/AWX-Automation%20Controller-orange)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Labs-326CE5?logo=kubernetes&logoColor=white)
+![Podman](https://img.shields.io/badge/Podman-Containerized%20Labs-892CA0?logo=podman&logoColor=white)
+
+
 Comprehensive Ansible workshop covering inventories, playbooks, variables, templates, roles, collections, Ansible Navigator, Automation Controller, RBAC, workflows, and hands-on labs.
 
 ## Audience
