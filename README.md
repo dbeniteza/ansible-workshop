@@ -45,7 +45,6 @@ By the end of this workshop you will be able to:
 | solutions | Lab solutions |
 | playbooks | Demonstration playbooks |
 | roles | Reusable Ansible roles |
-| templates | Jinja2 templates |
 | inventory | Inventories and variables |
 
 ## Prerequisites
@@ -128,46 +127,159 @@ The local lab consists of:
 └────────┘     └────────┘
 ```
 
----
+## Ansible Workshop AKS Lab
 
-## Enterprise Automation Labs
+This repository provides a complete AKS-based lab environment for the Ansible Workshop.
 
-The enterprise section of the workshop uses AWX.
+### Components
 
-AWX is the upstream open-source project for Red Hat Ansible Automation Platform and provides:
-
-- Web User Interface
-- Projects
-- Inventories
-- Credentials
-- Job Templates
-- Surveys
-- RBAC
-- Workflows
-
-The deployment manifests are available under:
+The lab deploys:
 
 ```text
-deployment/awx
+AKS
+│
+├── ansible-controller
+├── node1
+├── node2
+│
+└── AWX (optional)
+    ├── AWX Operator
+    ├── AWX Web
+    ├── AWX Task
+    └── PostgreSQL
 ```
 
-### Deploy AWX
+## Quick Start
+
+### Deploy the Lab Nodes
 
 ```bash
-kubectl apply -f deployment/awx/namespace.yaml
-
-kubectl apply -f \
-https://raw.githubusercontent.com/ansible/awx-operator/devel/deploy/awx-operator.yaml
-
-kubectl apply -f deployment/awx/awx.yaml
+kubectl apply -f deployment/aks-lab/
 ```
 
-Retrieve the admin password:
+Verify:
 
 ```bash
-kubectl get secret awx-admin-password \
-  -n awx \
-  -o jsonpath="{.data.password}" | base64 -d
+kubectl get pods -n ansible-lab
+```
+
+Expected:
+
+```text
+ansible-controller
+node1
+node2
+```
+
+## Supported Workshop Exercises
+
+Without AWX:
+
+- Exercise 01 - Inventories and Playbooks
+- Exercise 02 - Variables and Facts
+- Exercise 03 - Conditionals, Loops and Handlers
+- Exercise 04 - Templates
+- Exercise 05 - Roles and Collections
+- Exercise 06 - Ansible Navigator
+- Exercise 07 - Debugging and Troubleshooting
+
+With AWX:
+
+- Exercise 08 - Controller Introduction
+- Exercise 09 - Inventories and Credentials
+- Exercise 10 - Projects and Job Templates
+- Exercise 11 - Surveys and RBAC
+- Exercise 12 - Workflows
+
+## AWX Deployment
+
+AWX deployment instructions are available in:
+
+```text
+deployment/awx/README.md
+```
+
+The documented approach uses:
+
+```text
+AWX Operator
++
+Bitnami PostgreSQL
+```
+
+instead of the operator-managed PostgreSQL deployment.
+
+This approach has been validated on AKS.
+
+## AWX Architecture
+
+```text
+AKS
+│
+├── AWX Operator
+├── AWX Web
+├── AWX Task
+├── Bitnami PostgreSQL
+│
+├── ansible-controller
+├── node1
+└── node2
+```
+
+## AWX Inventory
+
+The AKS lab nodes can be managed directly from AWX.
+
+Inventory example:
+
+```yaml
+all:
+  hosts:
+    node1:
+      ansible_host: node1.ansible-lab.svc.cluster.local
+
+    node2:
+      ansible_host: node2.ansible-lab.svc.cluster.local
+
+  vars:
+    ansible_user: student
+    ansible_password: redhat
+    ansible_connection: ssh
+```
+
+Verify DNS resolution from AWX:
+
+```bash
+kubectl exec -it deploy/awx-task -n awx -- \
+getent hosts node1.ansible-lab.svc.cluster.local
+
+kubectl exec -it deploy/awx-task -n awx -- \
+getent hosts node2.ansible-lab.svc.cluster.local
+```
+
+## Security
+
+When exposing AWX through an Azure LoadBalancer, restrict access using:
+
+```yaml
+loadbalancer_source_ranges:
+  - <your-public-ip>/32
+```
+
+Example:
+
+```yaml
+loadbalancer_source_ranges:
+  - 162.125.43.52/32
+```
+
+This limits access to AWX from specific public IP addresses.
+
+## Cleanup
+
+```bash
+kubectl delete namespace ansible-lab
+kubectl delete namespace awx
 ```
 
 ## Workshop Modules
