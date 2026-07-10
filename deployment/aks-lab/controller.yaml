@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 
@@ -19,14 +18,12 @@ spec:
         app: ansible-controller
 
     spec:
-
       containers:
-      - name: controller
+        - name: controller
+          image: quay.io/ansible/creator-ee:latest
 
-        image: quay.io/ansible/creator-ee:latest
+          command:
+            - sleep
 
-        command:
-        - sleep
-
-        args:
-        - infinity
+          args:
+            - infinity
