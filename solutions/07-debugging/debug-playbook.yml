@@ -4,7 +4,7 @@
   gather_facts: true
   vars:
     application_name: workshop-app
-    environment: lab
+    workshop_environment: lab
 
   tasks:
     - name: Display application name
