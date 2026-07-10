@@ -26,3 +26,4 @@
       ansible.builtin.template:
         src: httpd.conf.j2
         dest: /tmp/httpd.conf
+        mode: "0644"
