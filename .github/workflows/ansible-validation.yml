@@ -38,7 +38,7 @@ jobs:
 
       - name: Validate playbook syntax
         run: |
-          find playbooks -name "*.yml" -type f -exec \
+          find playbooks -name "*.yml" ! -name "ansible-navigator.yml" -type f -exec \
           ansible-playbook --syntax-check {} \;
 
       - name: Validate solution playbooks
