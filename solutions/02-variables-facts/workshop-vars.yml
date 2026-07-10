@@ -4,7 +4,7 @@
   gather_facts: true
   vars:
     team_name: Platform Engineering
-    environment: Workshop
+    workshop_environment: lab
 
   tasks:
     - name: Display team information
