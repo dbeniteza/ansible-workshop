@@ -43,5 +43,10 @@ jobs:
 
       - name: Validate solution playbooks
         run: |
-          find solutions -name "*.yml" -type f -exec \
-          ansible-playbook --syntax-check {} \;
+          find solutions -maxdepth 2 -name "*.yml" \
+          ! -path "*/roles/*" \
+          ! -path "*/defaults/*" \
+          ! -path "*/handlers/*" \
+          ! -path "*/tasks/*" \
+          ! -name "ansible-navigator.yml" \
+          -exec ansible-playbook --syntax-check {} \;

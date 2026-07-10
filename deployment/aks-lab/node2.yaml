@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: node2
+  namespace: ansible-lab
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: node2
+
+  template:
+    metadata:
+      labels:
+        app: node2
+
+    spec:
+      containers:
+        - name: node2
+          image: docker.io/ubuntu:24.04
+
+          command:
+            - /bin/bash
+            - -c
+
+          args:
+            - |
+              apt-get update
+              DEBIAN_FRONTEND=noninteractive apt-get install -y \
+                openssh-server \
+                python3 \
+                sudo
+
+              useradd -m student || true
+              echo "student:redhat" | chpasswd
+
+              mkdir -p /run/sshd
+
+              ssh-keygen -A
+
+              exec /usr/sbin/sshd -D

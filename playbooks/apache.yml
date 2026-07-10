@@ -17,6 +17,7 @@
 
     - name: Deploy index page
       ansible.builtin.copy:
+        mode: "0755"
         content: |
 
           <html>
