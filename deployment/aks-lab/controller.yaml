@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ansible-controller
+  namespace: ansible-lab
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: ansible-controller
+
+  template:
+    metadata:
+      labels:
+        app: ansible-controller
+
+    spec:
+
+      containers:
+      - name: controller
+
+        image: quay.io/ansible/creator-ee:latest
+
+        command:
+        - sleep
+
+        args:
+        - infinity

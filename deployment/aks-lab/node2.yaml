@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node2
+  namespace: ansible-lab
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: node2
+
+  template:
+    metadata:
+      labels:
+        app: node2
+
+    spec:
+      containers:
+      - name: node2
+        image: ghcr.io/linuxserver/openssh-server:latest
+
+        env:
+        - name: USER_NAME
+          value: student
+
+        - name: USER_PASSWORD
+          value: redhat
+
+        - name: PASSWORD_ACCESS
+          value: "true"

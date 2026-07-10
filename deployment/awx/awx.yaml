@@ -7,18 +7,16 @@ metadata:
   namespace: awx
 
 spec:
+  service_type: LoadBalancer
+  loadbalancer_source_ranges:
+    - 165.225.93.53/32 # Your laptop IP addr
 
-  service_type: NodePort
+  postgres_configuration_secret: awx-postgres-configuration
 
   projects_persistence: true
-  projects_storage_access_mode: ReadWriteOnce
+  projects_storage_class: azurefile-csi
+  projects_storage_access_mode: ReadWriteMany
   projects_storage_size: 5Gi
-
-  postgres_storage_class: ""
-
-  postgres_storage_requirements:
-    requests:
-      storage: 8Gi
 
   web_resource_requirements:
     requests:
