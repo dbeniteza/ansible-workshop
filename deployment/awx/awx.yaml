@@ -9,7 +9,7 @@ metadata:
 spec:
   service_type: LoadBalancer
   loadbalancer_source_ranges:
-    - 165.225.93.53/32 # Your laptop IP addr
+    - 165.225.93.53/32  # Your laptop IP addr
 
   postgres_configuration_secret: awx-postgres-configuration
 
