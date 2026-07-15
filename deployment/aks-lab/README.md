@@ -14,19 +14,7 @@ The environment provides:
 
 # Architecture
 
-```text
-AKS Cluster
-│
-└── Namespace: ansible-lab
-    │
-    ├── ansible-controller
-    │
-    ├── node1
-    │   └── SSH (22)
-    │
-    └── node2
-        └── SSH (22)
-```
+![AKS Ansible Lab Architecture](../../docs/images/ansible_lab_aks.png)
 
 All components communicate using Kubernetes internal networking and DNS.
 
