@@ -1,0 +1,28 @@
+---
+# Ansible Lint Configuration for Atradius WebSphere IaC
+
+# Exclude specific directories
+exclude_paths:
+  - .cache/
+  - .github/
+  - templates/
+  - .vscode/
+  - .idea/
+  - tmp/
+
+# Warning list - rules that will generate warnings but not fail
+warn_list:
+  - experimental  # All rules tagged as experimental
+
+# Skip list - rules to completely ignore
+skip_list:
+  - var-naming[no-role-prefix]  # Allow variables without role prefix
+
+# Use default rules as baseline
+use_default_rules: true # Default value
+
+# Enable offline mode for environments without internet
+offline: true
+
+# Enable progress bar and increase verbosity
+verbosity: 1 # 0 - Minimal output (default); 1 - More detailed output (e.g., rule IDs, file names)
