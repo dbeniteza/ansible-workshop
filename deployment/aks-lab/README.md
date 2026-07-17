@@ -165,12 +165,6 @@ Password:
 redhat
 ```
 
-Expected:
-
-```text
-Welcome to Ubuntu
-```
-
 Verify hostname:
 
 ```bash
@@ -193,6 +187,36 @@ Repeat for node2 if desired.
 
 ---
 
+## Install sshpass
+
+The controller image does not include `sshpass` by default.
+
+Verify:
+
+```bash
+sshpass -V
+```
+
+If the command is not found, install it:
+
+```bash
+microdnf install -y sshpass
+```
+
+Verify the installation:
+
+```bash
+sshpass -V
+```
+
+Expected:
+
+```text
+sshpass <version>
+```
+
+---
+
 # Create an Inventory
 
 Create a basic inventory file inside the controller:
@@ -201,12 +225,6 @@ Create a basic inventory file inside the controller:
 cat > inventory.ini <<'EOF'
 [linux]
 node1
-node2
-
-[web]
-node1
-
-[database]
 node2
 
 [all:vars]
