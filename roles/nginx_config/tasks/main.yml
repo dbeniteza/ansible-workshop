@@ -1,0 +1,10 @@
+---
+# tasks file for nginx_config
+- name: Validate the role input
+  ansible.builtin.import_tasks: validate.yml
+
+- name: Configure NGINX
+  ansible.builtin.import_tasks: configure.yml
+
+- name: Verify the generated configuration
+  ansible.builtin.import_tasks: verify.yml

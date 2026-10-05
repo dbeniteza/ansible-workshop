@@ -1,0 +1,5 @@
+---
+# vars file for nginx_config
+nginx_config_directory: /home/student/nginx
+nginx_config_filename: nginx.conf
+nginx_upstream_name: techpiece_backend

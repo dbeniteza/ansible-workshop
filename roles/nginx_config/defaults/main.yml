@@ -1,0 +1,20 @@
+---
+# defaults file for nginx_config
+nginx_environment: development
+
+nginx_server_name: localhost
+nginx_web_port: 8080
+
+nginx_worker_processes: auto
+nginx_worker_connections: 512
+
+nginx_access_log_enabled: true
+
+nginx_backend_servers:
+  - name: app01
+    address: 10.0.0.11
+    port: 8080
+
+  - name: app02
+    address: 10.0.0.12
+    port: 8080

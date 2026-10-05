@@ -1,0 +1,7 @@
+---
+- name: Generate the NGINX configuration
+  hosts: linux
+  gather_facts: true
+
+  roles:
+    - role: nginx_config

@@ -1,0 +1,27 @@
+---
+galaxy_info:
+  role_name: nginx_config
+  namespace: techpiece
+  author: TechPiece
+  description: Generate a dynamic NGINX configuration using Ansible.
+  company: TechPiece
+  license: MIT
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - ansible
+    - nginx
+    - configuration
+    - automation
+    - jinja2
+
+dependencies: []

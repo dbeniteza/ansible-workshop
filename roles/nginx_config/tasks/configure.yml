@@ -1,0 +1,19 @@
+---
+- name: Create the NGINX configuration directory
+  ansible.builtin.file:
+    path: "{{ nginx_config_directory }}"
+    state: directory
+    mode: "0755"
+
+- name: Generate the NGINX configuration
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_config_directory }}/{{ nginx_config_filename }}"
+    mode: "0644"
+  notify: Report NGINX configuration change
+
+- name: Copy the role documentation
+  ansible.builtin.copy:
+    src: README.txt
+    dest: "{{ nginx_config_directory }}/README.txt"
+    mode: "0644"
