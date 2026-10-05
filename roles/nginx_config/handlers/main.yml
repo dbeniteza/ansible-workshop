@@ -1,0 +1,7 @@
+---
+# handlers file for nginx_config
+- name: Report NGINX configuration change
+  ansible.builtin.debug:
+    msg: >-
+      The NGINX configuration changed on {{ inventory_hostname }}.
+      In production, this handler could validate and reload NGINX.

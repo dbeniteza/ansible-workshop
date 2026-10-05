@@ -1,0 +1,24 @@
+---
+- name: Check the generated NGINX configuration
+  ansible.builtin.stat:
+    path: "{{ nginx_config_directory }}/{{ nginx_config_filename }}"
+  register: nginx_generated_config
+
+- name: Confirm that the generated configuration exists
+  ansible.builtin.assert:
+    that:
+      - nginx_generated_config.stat.exists
+      - nginx_generated_config.stat.isreg
+    fail_msg: >-
+      The generated NGINX configuration was not found.
+    success_msg: >-
+      The generated NGINX configuration exists.
+
+- name: Read the generated NGINX configuration
+  ansible.builtin.slurp:
+    src: "{{ nginx_config_directory }}/{{ nginx_config_filename }}"
+  register: nginx_config_content
+
+- name: Display the generated NGINX configuration
+  ansible.builtin.debug:
+    msg: "{{ nginx_config_content.content | b64decode }}"

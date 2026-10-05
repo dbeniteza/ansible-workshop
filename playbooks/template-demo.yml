@@ -1,0 +1,11 @@
+---
+- name: Deploy Apache configuration
+  hosts: web
+  become: true
+
+  tasks:
+
+    - name: Deploy template
+      ansible.builtin.template:
+        src: ../templates/httpd.conf.j2
+        dest: /tmp/httpd.conf

@@ -1,0 +1,55 @@
+---
+- name: Validate the NGINX environment
+  ansible.builtin.assert:
+    that:
+      - nginx_environment in ['development', 'qa', 'production']
+    fail_msg: >-
+      nginx_environment must be development, qa, or production.
+    success_msg: >-
+      The NGINX environment is valid.
+
+- name: Validate the NGINX web port
+  ansible.builtin.assert:
+    that:
+      - nginx_web_port | int >= 1
+      - nginx_web_port | int <= 65535
+    fail_msg: >-
+      nginx_web_port must be between 1 and 65535.
+    success_msg: >-
+      The NGINX web port is valid.
+
+- name: Validate the NGINX server name
+  ansible.builtin.assert:
+    that:
+      - nginx_server_name | string | length > 0
+    fail_msg: >-
+      nginx_server_name cannot be empty.
+    success_msg: >-
+      The NGINX server name is valid.
+
+- name: Validate the backend server list
+  ansible.builtin.assert:
+    that:
+      - nginx_backend_servers is iterable
+      - nginx_backend_servers is not string
+      - nginx_backend_servers | length > 0
+    fail_msg: >-
+      At least one backend server must be configured.
+    success_msg: >-
+      The backend server list is valid.
+
+- name: Validate each backend server
+  ansible.builtin.assert:
+    that:
+      - item.name is defined
+      - item.name | string | length > 0
+      - item.address is defined
+      - item.address | string | length > 0
+      - item.port is defined
+      - item.port | int >= 1
+      - item.port | int <= 65535
+    fail_msg: >-
+      Every backend must define a name, address, and valid port.
+  loop: "{{ nginx_backend_servers }}"
+  loop_control:
+    label: "{{ item.name | default('undefined backend') }}"

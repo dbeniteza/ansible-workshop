@@ -1,0 +1,20 @@
+---
+nginx_environment: production
+nginx_server_name: techpiece.io
+nginx_web_port: 8080
+
+nginx_worker_connections: 2048
+nginx_access_log_enabled: true
+
+nginx_backend_servers:
+  - name: app01
+    address: 10.0.0.21
+    port: 8080
+
+  - name: app02
+    address: 10.0.0.22
+    port: 8080
+
+  - name: app03
+    address: 10.0.0.23
+    port: 8080
